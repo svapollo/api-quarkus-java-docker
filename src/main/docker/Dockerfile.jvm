@@ -79,7 +79,7 @@
 ###
 FROM maven:3.9.4-eclipse-temurin-21 AS build
 COPY . .
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 FROM registry.access.redhat.com/ubi8/openjdk-21:1.20
 
