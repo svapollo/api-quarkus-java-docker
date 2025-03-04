@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkus-social
+spec:
+  selector:
+    matchLabels:
+      app: quarkus-social
+  template:
+    metadata:
+      labels:
+        app: quarkus-social
+        admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/java-lib.version: "latest"
+    spec:
+      containers:
+        - image: apollosv1234/quarkus-social:1.0
+          name: quarkus-social
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+            - name: MYSQL_URL
+              value: jdbc:mysql://mysql:3306/quarkussocial
+            - name: DD_AGENT_HOST
+              value: datadog-agent
+            - name: DD_TRACE_ENABLED
+              value: "true"
+            - name: DD_SERVICE
+              value: quarkus-social
+          ports:
+            - containerPort: 8080
