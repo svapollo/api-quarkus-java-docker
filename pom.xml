@@ -98,6 +98,11 @@
             <version>1.18.36</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.datadoghq</groupId>
+            <artifactId>dd-java-agent</artifactId>
+            <version>0.91.0</version>
+        </dependency>
     </dependencies>
 
     <build>

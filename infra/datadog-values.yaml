@@ -1,0 +1,28 @@
+registry: "docker.io/datadog"
+datadog:
+  apiKeyExistingSecret: "datadog-secret"
+  site: "datadoghq.eu"
+  apm:
+    portEnabled: true
+    instrumentation:
+      enabled: true
+      libVersions:
+        java: "1"
+  logs:
+    enabled: true
+    containerCollectAll: true
+  agents:
+    enabled: true
+    env:
+      - name: DD_KUBELET_TLS_VERIFY
+        value: "false"
+      - name: DD_CLUSTER_AGENT_ENABLED
+        value: "true"
+      - name: DD_LOG_LEVEL
+        value: "DEBUG"
+  clusterAgent:
+    enabled: true
+    token:
+      useSecret: true
+  rbac:
+    create: true
